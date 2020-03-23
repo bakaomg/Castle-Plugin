@@ -1,0 +1,213 @@
+@charset "utf-8";
+/**
+   _____                 _     _        
+  / ____|               | |   | |       
+ | |        __ _   ___  | |_  | |   ___ 
+ | |       / _` | / __| | __| | |  / _ \
+ | |____  | (_| | \__ \ | |_  | | |  __/
+  \_____|  \__,_| |___/  \__| |_|  \___|
+ ----------------------------------------
+ * Castle's Login Stylesheet
+ * Last Update: 2020/03/23
+ * Author: ohmyga (https://ohmyga.cn)
+ * GitHub: https://github.com/ohmyga233/castle-Typecho-Theme/
+ * LICENSE: GPL V3 (https://www.gnu.org/licenses/gpl-3.0.html)
+ **/
+
+* {
+   -webkit-tap-highlight-color: transparent;
+}
+
+/* ========== 背景 ========== */
+#moe-typecho-login-bg {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -2;
+  position: fixed;
+  transition: all 0.3s;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 50% 50%;
+}
+
+#moe-typecho-login-bg:after {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  content: '';
+  position: fixed;
+  background-color: rgba(0,0,0,0.65);
+}
+
+.typecho-login-wrap {
+  display: block;
+}
+
+.typecho-login {
+  padding: 0;
+  top: calc(50% - 120px);
+  width: 360px;
+  margin: auto;
+  display: block;
+  text-align: unset;
+  position: relative;
+  border-radius: 5px;
+  background-color: rgba(66,66,66,0.9);
+  box-shadow: 0 0 10px 0 rgba(255,255,255,0.25);
+}
+
+.typecho-login h1 {
+  margin: auto;
+}
+
+.typecho-login h1 a {
+  filter: none;
+  outline: none;
+  text-decoration: none;
+}
+
+.i-logo {
+  opacity: 1;
+  top: -120px;
+  left: calc(50% - 60px);
+  height: 120px;
+  width: 120px;
+  color: #fff;
+  margin: auto;
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  text-indent: -9999px;
+  text-decoration: none;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.i-logo:hover {
+  opacity: 1;
+}
+
+.typecho-login form {
+  padding: 15px;
+}
+
+.typecho-login form label {
+  color: #fff;
+  cursor: pointer;
+}
+
+.typecho-login form .submit .primary {
+  margin-top: 10px;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.typecho-login .more-link {
+  left: 0;
+  bottom: -50px;
+  width: 100%;
+  position: absolute;
+}
+
+.typecho-login .more-link a {
+  color: #fff;
+  transition: all 0.3s;
+  display: block;
+  font-size: 16px;
+  display: inline-block;
+}
+
+.typecho-login .more-link a:hover {
+  color: #FF4081;
+  text-decoration: none;
+}
+
+.typecho-login .more-link a.moe-more-link-reg {
+  float: right;
+  display: block;
+}
+
+/* ========== 输入框样式 ========== */
+input[type=text], input[type=password], input[type=email], textarea {
+  color:#fff;
+  outline: none;
+  transition: all 0.15s;
+  border-color: transparent;
+  border-bottom: solid 2px #fff;
+  background: rgba(20, 0, 0, 0);
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, textarea:focus {
+  border-bottom: solid 2px #FF4081;
+}
+
+input[type=checkbox], input[type=radio] {
+  border: 1px solid #7e8993;
+  border-radius: 4px;
+  background: #fff;
+  color: #555;
+  clear: none;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 0;
+  height: 1rem;
+  margin: -.25rem .25rem 0 0;
+  outline: 0;
+  padding: 0!important;
+  text-align: center;
+  vertical-align: middle;
+  width: 1rem;
+  min-width: 1rem;
+  -webkit-appearance: none;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+  transition: .05s border-color ease-in-out;
+}
+
+input[type=checkbox]:checked::before,
+input[type=radio]:checked::before {
+  float: left;
+  display: inline-block;
+  vertical-align: middle;
+  width: 1rem;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input[type=checkbox]:checked::before {
+  content: url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M14.83%204.89l1.34.94-5.81%208.38H9.02L5.78%209.67l1.34-1.25%202.57%202.4z%27%20fill%3D%27%231e8cbe%27%2F%3E%3C%2Fsvg%3E');
+  margin: -.1875rem 0 0 -.25rem;
+  height: 1.3125rem;
+  width: 1.3125rem;
+}
+
+/* ========== 消息框 ========== */
+.success {
+  color: #fff;
+  background: rgba(67,160,71,0.6);
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.3);
+}
+
+.error {
+  color: #fff;
+  background: rgba(255,82,82,0.6);
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.3);
+}
+
+.notice {
+  color: #fff;
+  background: rgba(255,246,191,0.6);
+  box-shadow: 0 0 5px 0 rgba(0,0,0,0.3);
+}
+
+@media(max-width: 425px) {
+ .typecho-login {
+  width: 90%;
+ }
+}
