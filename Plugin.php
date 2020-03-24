@@ -37,7 +37,7 @@ class Castle_Plugin implements Typecho_Plugin_Interface {
    throw new Typecho_Plugin_Exception('启用失败，PHP 需启用 CURL 扩展。');
   }
 
-  Helper::addAction('castleAPI', 'Castle_Plugin_API');
+  Helper::addAction('castle', 'Castle_Action');
   Typecho_Plugin::factory('admin/header.php')->header = array('Castle_Plugin', 'LoginHeaderRender');
  }
 
@@ -50,7 +50,7 @@ class Castle_Plugin implements Typecho_Plugin_Interface {
   * @throws Typecho_Plugin_Exception
   */
  public static function deactivate() {
-  Helper::removeAction("castleAPI");
+  Helper::removeAction("castle");
  }
 
  /**
@@ -70,6 +70,10 @@ class Castle_Plugin implements Typecho_Plugin_Interface {
   * @return void
   */
  public static function personalConfig(Typecho_Widget_Helper_Form $form){ }
+
+ public static function getAuth($type) {
+  return md5($type.Helper::options()->PluginAPIAuth.date('Y-m-d H').Helper::options()->PluginBangumiUID.$type);
+ }
 
  public static function LoginHeaderRender($head) {
   return Castle_Plugin_Libs::LoginHeaderRender($head);

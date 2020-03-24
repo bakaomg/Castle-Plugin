@@ -26,4 +26,5 @@ class Castle_Plugin_Libs {
 
   return $head;
  }
+ 
 }
