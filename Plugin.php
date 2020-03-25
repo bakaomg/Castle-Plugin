@@ -37,8 +37,14 @@ class Castle_Plugin implements Typecho_Plugin_Interface {
    throw new Typecho_Plugin_Exception('启用失败，PHP 需启用 CURL 扩展。');
   }
 
+  //注册 Action
   Helper::addAction('castle', 'Castle_Action');
+
+  //登录页面 Header 回调
   Typecho_Plugin::factory('admin/header.php')->header = array('Castle_Plugin', 'LoginHeaderRender');
+
+  //评论者 IP 地址地理位置解析
+  Typecho_Plugin::factory('Widget_Comments_Admin')->callIp = array('Castle_Plugin', 'commentLocation');
  }
 
  /**
@@ -70,6 +76,24 @@ class Castle_Plugin implements Typecho_Plugin_Interface {
   * @return void
   */
  public static function personalConfig(Typecho_Widget_Helper_Form $form){ }
+
+ /**
+  * 插件实现方法
+  * 
+  * @access public
+  * @param Typecho_Widget $comments 评论
+  * @return void
+  */
+  public static function commentLocation($comments) {
+   if (Helper::options()->PluginCommentSwitch && in_array('showIP', Helper::options()->PluginCommentSwitch)) {
+    require_once('libs/IP.php');
+
+    $location = IPLocation_IP::locate($comments->ip);
+    echo $comments->ip . '<br>' . $location;
+   }else{
+    echo $comments->ip;
+   }
+  }
 
  public static function getAuth($type) {
   return md5($type.Helper::options()->PluginAPIAuth.date('Y-m-d H').Helper::options()->PluginBangumiUID.$type);
