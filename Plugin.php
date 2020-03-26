@@ -4,10 +4,14 @@
  * 
  * @package Castle
  * @author ohmyga
- * @version 0.1.0
+ * @version 0.1.1
  * @link https://ohmyga.cn/
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+
+//设置时区 [上海]
+//如果时间显示有误请注解
+date_default_timezone_set("Asia/Shanghai");
 
 define('CASTLE_PLUGIN_VERSION', '0.1.0');
 require_once('libs/libs.php');
@@ -96,7 +100,8 @@ class Castle_Plugin implements Typecho_Plugin_Interface {
   }
 
  public static function getAuth($type) {
-  return md5($type.Helper::options()->PluginAPIAuth.date('Y-m-d H').Helper::options()->PluginBangumiUID.$type);
+  $getAuth = (Helper::options()->PluginAPIAuth) ? Helper::options()->PluginAPIAuth : '';
+  return md5($type.$getAuth.date('Y-m-d H').Helper::options()->PluginBangumiUID.$type);
  }
 
  public static function LoginHeaderRender($head) {
