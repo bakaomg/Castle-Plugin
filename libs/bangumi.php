@@ -1,7 +1,7 @@
 <?php
 /**
  * Castle Plugin Bangumi
- * Last Update: 2020/03/23
+ * Last Update: 2020/03/26
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
@@ -12,7 +12,7 @@ class Castle_Bangumi {
   *
   * @access private
   */
- private static function __getBGMWatchingList($uid) {
+ public static function __getBGMWatchingList($uid) {
   $apiUrl = 'https://api.bgm.tv/user/'.$uid.'/collection';
   $data = curl::get($apiUrl, ['cat' => 'watching'], [
    'Referer: https://bgm.tv/',
@@ -32,11 +32,14 @@ class Castle_Bangumi {
     $bangumiArray[] = [
      'name'        =>  $bangumi['name'],
      'name_cn'     =>  $bangumi['subject']['name_cn'],
-     'cover'       =>  preg_replace('/http/', 'https', $bangumi['subject']['images']['large']),
+     'cover'       =>  [
+      'large'  => preg_replace('/http/', 'https', $bangumi['subject']['images']['large']),
+      'square' => preg_replace('/http/', 'https', $bangumi['subject']['images']['common'])
+     ],
      'url'         =>  preg_replace('/http/', 'https', $bangumi['subject']['url']),
      'status'      =>  $bangumi['ep_status'],
      'count'       =>  ($bangumi['subject']['eps_count'] == null) ? '总集数未知' : $bangumi['subject']['eps_count'],
-     'progress'    =>  ($bangumi['subject']['eps_count'] == null) ? '0' : 100/$eps_count*$bangumi['ep_status']
+     'progress'    =>  ($bangumi['subject']['eps_count'] == null) ? '0' : 100/$bangumi['subject']['eps_count']*$bangumi['ep_status']
     ];
    }
   }
@@ -49,7 +52,7 @@ class Castle_Bangumi {
   *
   * @access private
   */
- private static function __getBiliBangumiWatchingList($uid, $pn = 1, $ps = 15, $token = NULL) {
+ private static function __getBiliBangumiWatchingList($uid, $token = NULL) {
   $apiUrl = 'https://api.bilibili.com/x/space/bangumi/follow/list';
   $SESSDATA = ($token) ? 'Cookie: SESSDATA='.$token.';' : '';
   $header = [
@@ -133,10 +136,11 @@ class Castle_Bangumi {
    return $list;
   }
 
-  if ($type != false && $type == 'bilibili') {
+  if ($type != false && $type == 'bgm') {
+  //Bangumi(bgm.tv)
    //如果 UID 不为空
    if ($uid != false) {
-    $getBGM = self::__getBiliBangumiWatchingList($uid);
+    $getBGM = self::__getBGMWatchingList($uid);
     
     //如果返回不为空
     if ($getBGM != false && $getBGM != NULL) {
@@ -150,7 +154,8 @@ class Castle_Bangumi {
      $list['last_update'] = time();
     }
    }
-  }elseif ($type != false && $type == 'bgm') {
+  }elseif ($type != false && $type == 'bilibili') {
+   //Bilibili(bilibili.com)
    //如果 UID 不为空
    if ($uid != false) {
     $getBili = self::__getBiliBangumiWatchingList($uid,
