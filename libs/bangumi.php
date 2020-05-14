@@ -1,7 +1,7 @@
 <?php
 /**
  * Castle Plugin Bangumi
- * Last Update: 2020/03/26
+ * Last Update: 2020/05/14
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
@@ -87,10 +87,10 @@ class Castle_Bangumi {
      'large'  => preg_replace('/http/', 'https', $bangumi['cover']),
      'square' => preg_replace('/http/', 'https', $bangumi['square_cover'])
     ],
-    'count'    =>  ($bangumi['total_count'] != '-1' && isset($bangumi['total_count'])) ? $bangumi['total_count'] : 'unknown',
+    'count'    =>  ($bangumi['total_count'] != '-1' && $bangumi['total_count'] != '0' && isset($bangumi['total_count'])) ? $bangumi['total_count'] : 'unknown',
     'url'      =>  $bangumi['url'],
     'status'   =>  (isset($getProgress[1][0])) ? $getProgress[1][0] : '0',
-    'progress' =>  (isset($getProgress[1][0]) && $bangumi['total_count'] != '-1' && isset($bangumi['total_count'])) ? 100/$bangumi['total_count']*$getProgress[1][0] : '0',
+    'progress' =>  (isset($getProgress[1][0]) && $bangumi['total_count'] != '-1' && $bangumi['total_count'] != '0' && isset($bangumi['total_count'])) ? 100/$bangumi['total_count']*$getProgress[1][0] : '0',
     'info'     =>  [
      'area' => $bangumi['areas'][0]['name'],
      'type' => $bangumi['season_type_name'],
