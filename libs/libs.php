@@ -1,11 +1,12 @@
 <?php
 /**
  * Castle Plugin Libs
- * Last Update: 2020/03/25
+ * Last Update: 2020/05/14
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
+require_once __DIR__ .'/cache.php';
 
-class Castle_Plugin_Libs {
+class Castle_Plugin_Libs extends Castle_Plugin_Cache {
  
  /**
   * 登录界面 Header 回调
@@ -26,5 +27,5 @@ class Castle_Plugin_Libs {
 
   return $head;
  }
- 
+
 }
