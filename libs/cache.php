@@ -35,6 +35,16 @@ class Castle_Plugin_Cache {
  }
 
  /**
+  * 计算站点配置缓存文件 MD5 值
+  *
+  * @access public
+  * @param  md5_file 
+  */
+ public static function getSiteConfigMd5() {
+  return md5_file(__DIR__ .'/../cache/siteConfig.js');
+ }
+
+ /**
   * 缓存追番信息
   */
  public static function bangumi($type, array $data) {
