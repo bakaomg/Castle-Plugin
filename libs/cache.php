@@ -8,7 +8,7 @@ class Castle_Plugin_Cache {
  /**
   * 创建 cache 文件夹
   */
- private static function mkdir() {
+ public static function mkdir() {
   if (!is_dir(__DIR__ .'/../cache/')) {
    mkdir(__DIR__ .'/../cache/', 0777, true);
    chmod(__DIR__ .'/../cache/', 0777);
