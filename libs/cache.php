@@ -1,7 +1,7 @@
 <?php
 /**
  * Castle Cache
- * Last Update: 2020/05/14
+ * Last Update: 2020/05/15
  */
 
 class Castle_Plugin_Cache {
@@ -18,8 +18,10 @@ class Castle_Plugin_Cache {
  /**
   * 缓存站点配置文件
   *
-  * @param  string
   * @access public
+  * @param void $config  需缓存的内容
+  * @param bool $update  是否需要更新缓存
+  * @return string       缓存文件的 URI
   */
  public static function siteConfig($config, $update = false) {
   self::mkdir();
