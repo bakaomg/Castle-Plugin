@@ -84,7 +84,7 @@ class Castle_Bangumi {
    $bangumiArray[] = [
     'name'     =>  $bangumi['title'],
     'cover'    =>  [
-     'large'  => preg_replace('/http/', 'https', $bangumi['cover']),
+     'large'  => preg_replace('/http/', 'https', $bangumi['cover'])."@188w_251h.jpg",
      'square' => preg_replace('/http/', 'https', $bangumi['square_cover'])
     ],
     'count'    =>  ($bangumi['total_count'] != '-1' && $bangumi['total_count'] != '0' && isset($bangumi['total_count'])) ? $bangumi['total_count'] : 'unknown',
