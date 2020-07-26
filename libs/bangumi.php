@@ -64,7 +64,7 @@ class Castle_Bangumi {
    'type'          => '1',
    'follow_status' => '0',
    'pn'            => '1',
-   'ps'            => '50',
+   'ps'            => '30',
    'vmid'          => $uid
   ];
 
