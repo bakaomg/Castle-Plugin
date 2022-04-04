@@ -2,7 +2,7 @@
 
 /**
  * Castle Plugin Action
- * Last Update: 2021/04/11
+ * Last Update: 2022/04/04
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 require_once('libs/curl.php');
@@ -93,8 +93,8 @@ class Castle_Action extends Typecho_Widget implements Widget_Interface_Do
     {
         $widget = $this->widget('Widget_Abstract_Contents');
 
-        $result['text'] = (!empty($result['text'])) ? $result['text'] : NULL;
-        $result['digest'] = (!empty($result['digest'])) ? $result['digest'] : NULL;
+        $result['text'] = (!empty($result['text'])) ? $result['text'] : "";
+        $result['digest'] = (!empty($result['digest'])) ? $result['digest'] : "";
 
         $result['password'] = '';
 
