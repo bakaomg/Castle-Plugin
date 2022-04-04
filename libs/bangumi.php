@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Castle Plugin Bangumi
  * Last Update: 2021/04/13
@@ -16,8 +17,8 @@ class Castle_Bangumi
      */
     public static function __getBGMWatchingList($uid)
     {
-        $apiUrl = 'https://api.bgm.tv/user/' . $uid . '/collection';
-        $data = curl::get($apiUrl, ['cat' => 'watching'], [
+        $apiUrl = "https://api.bgm.tv/v0/users/{$uid}/collections";
+        $data = curl::get($apiUrl, ['subject_type' => '2', 'limit' => 30, 'type' => 3], [
             'Referer: https://bgm.tv/',
             'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'
         ]);
@@ -30,20 +31,43 @@ class Castle_Bangumi
         $data = json_decode($data, true);
         $bangumiArray = [];
 
-        foreach ($data as $bangumi) {
-            if ($bangumi['subject']['type'] == 2) {
-                $bangumiArray[] = [
-                    'name'        =>  $bangumi['name'],
-                    'name_cn'     =>  $bangumi['subject']['name_cn'],
+        foreach ($data["data"] as $bangumi) {
+            if ($bangumi["subject_type"] == 2) {
+                $newArr = [
+                    'name'        =>  '',
+                    'name_cn'     =>  '',
                     'cover'       =>  [
-                        'large'  => preg_replace('/http/', 'https', $bangumi['subject']['images']['large']),
-                        'square' => preg_replace('/http/', 'https', $bangumi['subject']['images']['common'])
+                        'large'  => '',
+                        'square' => ''
                     ],
-                    'url'         =>  preg_replace('/http/', 'https', $bangumi['subject']['url']),
-                    'status'      =>  $bangumi['ep_status'],
-                    'count'       => ($bangumi['subject']['eps_count'] == null) ? '总集数未知' : $bangumi['subject']['eps_count'],
-                    'progress'    => ($bangumi['subject']['eps_count'] == null) ? '0' : 100 / $bangumi['subject']['eps_count'] * $bangumi['ep_status']
+                    'url'         =>  '',
+                    'status'      =>  '',
+                    'count'       =>  '',
+                    'progress'    =>  ''
                 ];
+
+                $api = "https://api.bgm.tv/v0/subjects/{$bangumi['subject_id']}";
+                $subject = curl::get($api, [], [
+                    'Referer: https://bgm.tv/',
+                    'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'
+                ]);
+
+                if ($subject == null || empty(json_decode($subject, true))) {
+                    continue;
+                }
+
+                $subject = json_decode($subject, true);
+
+                $newArr['name'] = $subject['name'];
+                $newArr['name_cn'] = $subject['name_cn'];
+                $newArr['cover']['large'] = preg_replace('/http:\/\//', 'https://', $subject['images']['large']);
+                $newArr['cover']['square'] = preg_replace('/http:\/\//', 'https://', $subject['images']['grid']);
+                $newArr['url'] = "https://bgm.tv/subject/{$bangumi['subject_id']}";
+                $newArr['status'] = $bangumi['ep_status'];
+                $newArr['count'] = ($subject['eps'] == null) ? '总集数未知' : $subject['eps'];
+                $newArr['progress'] = ($subject['eps'] == null) ? '0' : 100 / $subject['eps'] * $bangumi['ep_status'];
+
+                $bangumiArray[] = $newArr;
             }
         }
 
