@@ -4,7 +4,7 @@
  * 
  * @package Castle
  * @author ohmyga
- * @version 0.1.5
+ * @version 0.1.6
  * @link https://ohmyga.cn/
  */
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
@@ -13,7 +13,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 //如果时间显示有误请注解
 date_default_timezone_set("Asia/Shanghai");
 
-define('CASTLE_PLUGIN_VERSION', '0.1.2');
+define('CASTLE_PLUGIN_VERSION', '0.1.6');
 require_once('libs/libs.php');
 
 class Castle_Plugin extends Castle_Plugin_Libs implements Typecho_Plugin_Interface {
